@@ -40,40 +40,140 @@ body{
 }
 
 .choice{
-  padding:70px 20px;
-  background:#f7f1ef;
+  padding:60px 20px;
   text-align:center;
+  background:#f7f1ef;
 }
 
 .choice h1{
-  font-size:64px;
+  font-size:54px;
   font-weight:300;
-  margin-bottom:60px;
+  margin-bottom:50px;
 }
 
 .frames{
   display:flex;
   justify-content:center;
-  gap:35px;
+  align-items:center;
+  gap:45px;
   flex-wrap:wrap;
 }
 
 .frame-option{
-  width:180px;
   cursor:pointer;
   transition:.3s;
-  padding:10px;
 }
 
-.frame-option.active{transform:scale(1.08)}
+.frame-option.active{
+  transform:scale(1.06);
+}
 
-.frame-option img{
+.mock{
+  position:relative;
+  margin:auto;
+}
+
+.mock div{
+  background:#f7f1ef;
+}
+
+/* opção 1 */
+.mock-strip{
+  width:150px;
+  height:430px;
+  background:#8b0016;
+  padding:24px 18px;
+  display:grid;
+  gap:13px;
+  transform:rotate(7deg);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.mock-strip div{
+  height:108px;
+  border:8px solid #8b0016;
+  background:#f7f1ef;
+}
+
+.side-text{
+  position:absolute;
+  right:-42px;
+  top:155px;
+  transform:rotate(90deg);
+  color:white;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+/* opção 2 */
+.mock-double{
+  width:180px;
+  height:440px;
+  background:#777;
+  padding:22px 18px 76px;
+  display:grid;
+  gap:16px;
+  transform:rotate(-3deg);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.mock-double div{
+  height:150px;
+  border:8px solid #777;
+  background:#f7f1ef;
+}
+
+/* opção 3 */
+.mock-clean{
+  width:170px;
+  height:460px;
+  background:white;
+  padding:20px 14px 86px;
+  display:grid;
+  gap:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.mock-clean div{
+  height:105px;
+  background:#f7f1ef;
+}
+
+/* opção 4 */
+.mock-polaroid{
+  width:250px;
+  height:315px;
+  background:white;
+  padding:24px 24px 78px;
+  transform:rotate(-4deg);
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.mock-polaroid div{
   width:100%;
-  display:block;
+  height:100%;
+  background:#f7f1ef;
+}
+
+.mock strong{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:25px;
+  font-family:Georgia,serif;
+  font-style:italic;
+  font-weight:300;
+  font-size:18px;
+  color:white;
+}
+
+.mock-clean strong,
+.mock-polaroid strong{
+  color:#8b0016;
 }
 
 .btn{
-  margin-top:50px;
+  margin-top:55px;
   width:260px;
   height:58px;
   border:none;
@@ -86,8 +186,8 @@ body{
 }
 
 .editor{
-  background:#f7f1ef;
   padding:40px 20px;
+  background:#f7f1ef;
 }
 
 .editor-box{
@@ -166,7 +266,7 @@ canvas{
 }
 
 .result{
-  background:url("./final.jpg") center/cover no-repeat;
+  background:#f7f1ef;
   display:none;
   align-items:center;
   justify-content:center;
@@ -202,7 +302,7 @@ canvas{
 }
 
 @media(max-width:900px){
-  .choice h1{font-size:42px}
+  .choice h1{font-size:38px}
   .editor-box{grid-template-columns:1fr}
 }
 </style>
@@ -218,21 +318,35 @@ canvas{
   <h1>Escolha sua polaroid</h1>
 
   <div class="frames">
-    <div class="frame-option" onclick="selectFrame(this,'polaroid1.png','p1')">
-      <img src="./polaroid1.png">
+
+    <div class="frame-option" onclick="selectFrame(this,'p1')">
+      <div class="mock mock-strip">
+        <div></div><div></div><div></div>
+        <span class="side-text">THE MOST LOVED EDIT</span>
+      </div>
     </div>
 
-    <div class="frame-option" onclick="selectFrame(this,'polaroid2.png','p2')">
-      <img src="./polaroid2.png">
+    <div class="frame-option" onclick="selectFrame(this,'p2')">
+      <div class="mock mock-double">
+        <div></div><div></div>
+        <strong>the most loved edit</strong>
+      </div>
     </div>
 
-    <div class="frame-option" onclick="selectFrame(this,'polaroid3.png','p3')">
-      <img src="./polaroid3.png">
+    <div class="frame-option" onclick="selectFrame(this,'p3')">
+      <div class="mock mock-clean">
+        <div></div><div></div><div></div>
+        <strong>the most loved edit</strong>
+      </div>
     </div>
 
-    <div class="frame-option" onclick="selectFrame(this,'polaroid4.png','p4')">
-      <img src="./polaroid4.png">
+    <div class="frame-option" onclick="selectFrame(this,'p4')">
+      <div class="mock mock-polaroid">
+        <div></div>
+        <strong>the most loved edit</strong>
+      </div>
     </div>
+
   </div>
 
   <button class="btn" onclick="goToEditor()">CONTINUAR</button>
@@ -244,7 +358,7 @@ canvas{
     <div class="panel">
       <h1>Ajuste sua foto</h1>
 
-      <p id="photoText">
+      <p>
         Clique em um quadradinho da polaroid e depois em inserir foto.
       </p>
 
@@ -303,13 +417,9 @@ const fileInput = document.getElementById("fileInput");
 const zoomRange = document.getElementById("zoomRange");
 const selectedText = document.getElementById("selectedText");
 
-let selectedFrame = "";
 let selectedType = "";
-let frameImage = new Image();
-
 let activeSlot = 0;
 let photos = [];
-
 let dragging = false;
 let lastX = 0;
 let lastY = 0;
@@ -323,58 +433,50 @@ function goToChoice(){
   show(choicePage);
 }
 
-function selectFrame(el, frame, type){
+function selectFrame(el,type){
   document.querySelectorAll(".frame-option").forEach(i => i.classList.remove("active"));
   el.classList.add("active");
-
-  selectedFrame = frame;
   selectedType = type;
 }
 
 function goToEditor(){
-  if(!selectedFrame){
+  if(!selectedType){
     alert("Escolha uma polaroid");
     return;
   }
 
-  frameImage.src = "./" + selectedFrame;
-
-  frameImage.onload = () => {
-    setupPhotos();
-    draw();
-    show(editorPage);
-  };
+  setupPhotos();
+  draw();
+  show(editorPage);
 }
 
 function getSlots(){
   if(selectedType === "p1"){
     return [
-      {x:170,y:150,w:560,h:250},
-      {x:170,y:450,w:560,h:250},
-      {x:170,y:750,w:560,h:250}
+      {x:250,y:120,w:400,h:260},
+      {x:250,y:430,w:400,h:260},
+      {x:250,y:740,w:400,h:260}
     ];
   }
 
   if(selectedType === "p2"){
     return [
-      {x:150,y:140,w:600,h:850}
+      {x:230,y:110,w:440,h:390},
+      {x:230,y:540,w:440,h:390}
     ];
   }
 
   if(selectedType === "p3"){
     return [
-      {x:170,y:150,w:560,h:250},
-      {x:170,y:450,w:560,h:250},
-      {x:170,y:750,w:560,h:250}
+      {x:245,y:90,w:410,h:260},
+      {x:245,y:390,w:410,h:260},
+      {x:245,y:690,w:410,h:260}
     ];
   }
 
   if(selectedType === "p4"){
     return [
-      {x:170,y:110,w:560,h:220},
-      {x:170,y:390,w:560,h:220},
-      {x:170,y:670,w:560,h:220},
-      {x:170,y:950,w:560,h:220}
+      {x:165,y:150,w:570,h:650}
     ];
   }
 
@@ -425,6 +527,7 @@ fileInput.addEventListener("change", e=>{
         activeSlot++;
         updateSelectedText();
         zoomRange.value = photos[activeSlot].zoom;
+        draw();
       }
 
       fileInput.value = "";
@@ -479,12 +582,21 @@ function changeZoom(value){
 function draw(targetCtx = ctx){
   targetCtx.clearRect(0,0,canvas.width,canvas.height);
 
+  drawPhotos(targetCtx);
+  drawFrame(targetCtx);
+
+  if(targetCtx === ctx){
+    drawActiveSlot(targetCtx);
+  }
+}
+
+function drawPhotos(targetCtx){
   const slots = getSlots();
 
   slots.forEach((slot,index)=>{
     const item = photos[index];
 
-    targetCtx.fillStyle = "white";
+    targetCtx.fillStyle = "#f7f1ef";
     targetCtx.fillRect(slot.x,slot.y,slot.w,slot.h);
 
     if(item.img){
@@ -503,15 +615,98 @@ function draw(targetCtx = ctx){
       targetCtx.drawImage(item.img,item.x,item.y,w,h);
       targetCtx.restore();
     }
+  });
+}
 
-    if(index === activeSlot && targetCtx === ctx){
-      targetCtx.strokeStyle = "#8b0016";
-      targetCtx.lineWidth = 8;
-      targetCtx.strokeRect(slot.x,slot.y,slot.w,slot.h);
-    }
+function drawFrame(targetCtx){
+  if(selectedType === "p1") drawStripFrame(targetCtx);
+  if(selectedType === "p2") drawDoubleFrame(targetCtx);
+  if(selectedType === "p3") drawCleanFrame(targetCtx);
+  if(selectedType === "p4") drawPolaroidFrame(targetCtx);
+}
+
+function drawStripFrame(c){
+  c.save();
+  c.fillStyle = "#8b0016";
+  c.fillRect(210,70,480,1020);
+
+  getSlots().forEach(s=>{
+    c.clearRect(s.x,s.y,s.w,s.h);
+    c.strokeStyle = "#8b0016";
+    c.lineWidth = 24;
+    c.strokeRect(s.x,s.y,s.w,s.h);
   });
 
-  targetCtx.drawImage(frameImage,0,0,canvas.width,canvas.height);
+  c.fillStyle = "white";
+  c.font = "italic 34px Georgia";
+  c.fillText("the most loved edit",260,1045);
+  c.restore();
+}
+
+function drawDoubleFrame(c){
+  c.save();
+  c.fillStyle = "#777";
+  c.fillRect(190,60,520,980);
+
+  getSlots().forEach(s=>{
+    c.clearRect(s.x,s.y,s.w,s.h);
+    c.strokeStyle = "#777";
+    c.lineWidth = 26;
+    c.strokeRect(s.x,s.y,s.w,s.h);
+  });
+
+  c.fillStyle = "white";
+  c.font = "bold 42px Arial";
+  c.fillText("THE MOST",230,970);
+  c.fillText("LOVED EDIT",230,1018);
+  c.restore();
+}
+
+function drawCleanFrame(c){
+  c.save();
+  c.fillStyle = "white";
+  c.fillRect(210,50,480,1040);
+
+  getSlots().forEach(s=>{
+    c.clearRect(s.x,s.y,s.w,s.h);
+    c.strokeStyle = "white";
+    c.lineWidth = 26;
+    c.strokeRect(s.x,s.y,s.w,s.h);
+  });
+
+  c.fillStyle = "#8b0016";
+  c.font = "italic 34px Georgia";
+  c.fillText("the most loved edit",255,1035);
+  c.restore();
+}
+
+function drawPolaroidFrame(c){
+  c.save();
+  c.fillStyle = "white";
+  c.fillRect(120,90,660,900);
+
+  const s = getSlots()[0];
+  c.clearRect(s.x,s.y,s.w,s.h);
+
+  c.strokeStyle = "white";
+  c.lineWidth = 28;
+  c.strokeRect(s.x,s.y,s.w,s.h);
+
+  c.fillStyle = "#8b0016";
+  c.font = "italic 38px Georgia";
+  c.fillText("the most loved edit",245,900);
+  c.restore();
+}
+
+function drawActiveSlot(c){
+  const slot = getSlots()[activeSlot];
+  if(!slot) return;
+
+  c.save();
+  c.strokeStyle = "#8b0016";
+  c.lineWidth = 8;
+  c.strokeRect(slot.x,slot.y,slot.w,slot.h);
+  c.restore();
 }
 
 canvas.addEventListener("mousedown", startDrag);
