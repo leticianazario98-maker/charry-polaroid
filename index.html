@@ -6,11 +6,7 @@
 <title>The Most Loved Edit</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
   font-family:Arial,sans-serif;
@@ -18,16 +14,8 @@ body{
   overflow-x:hidden;
 }
 
-.page{
-  display:none;
-  min-height:100vh;
-}
-
-.page.active{
-  display:block;
-}
-
-/* CAPA */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
 
 .cover{
   min-height:100vh;
@@ -47,29 +35,25 @@ body{
   background:#8b0016;
   color:white;
   letter-spacing:3px;
-  font-size:12px;
   cursor:pointer;
 }
 
-/* ESCOLHA */
-
 .choice{
-  padding:60px 20px;
+  padding:70px 20px;
   text-align:center;
-  background:#f7f1ef;
 }
 
 .choice h1{
   font-size:54px;
   font-weight:300;
-  margin-bottom:50px;
+  margin-bottom:55px;
 }
 
 .frames{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:70px;
+  gap:55px;
   flex-wrap:wrap;
 }
 
@@ -84,39 +68,46 @@ body{
 
 .mock{
   position:relative;
-  margin:auto;
-  box-shadow:0 10px 30px rgba(0,0,0,.14);
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
 }
 
-/* 3 FOTOS */
-
-.red-clean{
-  width:180px;
-  height:520px;
-  background:#8b0016;
-  padding:22px 16px 90px;
+.frame-3{
+  width:185px;
+  height:540px;
+  padding:22px 18px 95px;
   display:grid;
   gap:14px;
 }
 
-.red-clean div{
-  background:#f7f1ef;
-  height:118px;
+.frame-3 div{
+  height:120px;
 }
 
-/* 1 FOTO */
-
-.red-polaroid{
-  width:270px;
-  height:340px;
-  background:#8b0016;
-  padding:24px 24px 90px;
+.frame-1{
+  width:280px;
+  height:360px;
+  padding:24px 24px 95px;
   transform:rotate(-4deg);
 }
 
-.red-polaroid div{
+.frame-1 div{
   width:100%;
   height:100%;
+}
+
+.red{
+  background:#8b0016;
+}
+
+.red div{
+  background:#f7f1ef;
+}
+
+.white{
+  background:white;
+}
+
+.white div{
   background:#f7f1ef;
 }
 
@@ -128,13 +119,20 @@ body{
   text-align:center;
   font-family:Georgia,serif;
   font-style:italic;
+  font-size:20px;
   font-weight:300;
-  font-size:18px;
+}
+
+.red strong{
   color:white;
 }
 
+.white strong{
+  color:#8b0016;
+}
+
 .btn{
-  margin-top:55px;
+  margin-top:60px;
   width:260px;
   height:58px;
   border:none;
@@ -142,15 +140,11 @@ body{
   background:#8b0016;
   color:white;
   letter-spacing:4px;
-  font-size:12px;
   cursor:pointer;
 }
 
-/* EDITOR */
-
 .editor{
   padding:40px 20px;
-  background:#f7f1ef;
 }
 
 .editor-box{
@@ -193,9 +187,7 @@ body{
   margin-bottom:25px;
 }
 
-.upload input{
-  display:none;
-}
+.upload input{display:none}
 
 .zoom{
   width:100%;
@@ -230,10 +222,7 @@ canvas{
   cursor:pointer;
 }
 
-/* RESULTADO */
-
 .result{
-  background:#f7f1ef;
   display:none;
   align-items:center;
   justify-content:center;
@@ -242,9 +231,7 @@ canvas{
   padding:40px;
 }
 
-.result.active{
-  display:flex;
-}
+.result.active{display:flex}
 
 .result-buttons{
   display:flex;
@@ -271,13 +258,8 @@ canvas{
 }
 
 @media(max-width:900px){
-  .choice h1{
-    font-size:38px;
-  }
-
-  .editor-box{
-    grid-template-columns:1fr;
-  }
+  .choice h1{font-size:38px}
+  .editor-box{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -289,87 +271,86 @@ canvas{
 </section>
 
 <section class="page choice" id="choicePage">
+  <h1>Escolha sua polaroid</h1>
 
-<h1>Escolha sua polaroid</h1>
+  <div class="frames">
 
-<div class="frames">
-
-  <div class="frame-option" onclick="selectFrame(this,'p3red')">
-    <div class="mock red-clean">
-      <div></div>
-      <div></div>
-      <div></div>
-      <strong>the most loved edit</strong>
+    <div class="frame-option" onclick="selectFrame(this,'p3red')">
+      <div class="mock frame-3 red">
+        <div></div><div></div><div></div>
+        <strong>the most loved edit</strong>
+      </div>
     </div>
+
+    <div class="frame-option" onclick="selectFrame(this,'p1red')">
+      <div class="mock frame-1 red">
+        <div></div>
+        <strong>the most loved edit</strong>
+      </div>
+    </div>
+
+    <div class="frame-option" onclick="selectFrame(this,'p3white')">
+      <div class="mock frame-3 white">
+        <div></div><div></div><div></div>
+        <strong>the most loved edit</strong>
+      </div>
+    </div>
+
+    <div class="frame-option" onclick="selectFrame(this,'p1white')">
+      <div class="mock frame-1 white">
+        <div></div>
+        <strong>the most loved edit</strong>
+      </div>
+    </div>
+
   </div>
 
-  <div class="frame-option" onclick="selectFrame(this,'p1red')">
-    <div class="mock red-polaroid">
-      <div></div>
-      <strong>the most loved edit</strong>
-    </div>
-  </div>
-
-</div>
-
-<button class="btn" onclick="goToEditor()">CONTINUAR</button>
-
+  <button class="btn" onclick="goToEditor()">CONTINUAR</button>
 </section>
 
 <section class="page editor" id="editorPage">
+  <div class="editor-box">
 
-<div class="editor-box">
+    <div class="panel">
+      <h1>Ajuste sua foto</h1>
 
-<div class="panel">
+      <p>Clique no quadradinho da polaroid e depois em inserir foto.</p>
 
-<h1>Ajuste sua foto</h1>
+      <label class="upload">
+        INSERIR FOTO
+        <input type="file" id="fileInput" accept="image/*">
+      </label>
 
-<p>
-Clique no quadradinho da polaroid e depois em inserir foto.
-</p>
+      <input type="range" min="1" max="4" step="0.01" value="2" class="zoom" id="zoomRange">
 
-<label class="upload">
-INSERIR FOTO
-<input type="file" id="fileInput" accept="image/*">
-</label>
+      <div class="zoom-buttons">
+        <button onclick="changeZoom(-0.1)">- zoom</button>
+        <button onclick="changeZoom(0.1)">+ zoom</button>
+      </div>
 
-<input type="range" min="1" max="4" step="0.01" value="2" class="zoom" id="zoomRange">
+      <p style="margin-top:20px;">
+        Quadrado selecionado: <strong id="selectedText">Foto 1</strong>
+      </p>
 
-<div class="zoom-buttons">
-<button onclick="changeZoom(-0.1)">- zoom</button>
-<button onclick="changeZoom(0.1)">+ zoom</button>
-</div>
+      <p>Depois arraste a imagem dentro do quadro para ajustar.</p>
 
-<p style="margin-top:20px;">
-Quadrado selecionado:
-<strong id="selectedText">Foto 1</strong>
-</p>
+      <button class="btn" onclick="finish()">FINALIZAR</button>
+    </div>
 
-<p>
-Depois arraste a imagem dentro do quadro para ajustar.
-</p>
+    <div class="preview">
+      <canvas id="canvas" width="900" height="1300"></canvas>
+    </div>
 
-<button class="btn" onclick="finish()">FINALIZAR</button>
-
-</div>
-
-<div class="preview">
-<canvas id="canvas" width="900" height="1300"></canvas>
-</div>
-
-</div>
-
+  </div>
 </section>
 
 <section class="page result" id="resultPage">
+  <canvas id="resultCanvas" width="900" height="1300"></canvas>
 
-<canvas id="resultCanvas" width="900" height="1300"></canvas>
-
-<div class="result-buttons">
-<button class="download" onclick="downloadImage()">BAIXAR</button>
-<button class="print" onclick="printImage()">IMPRIMIR</button>
-</div>
-
+  <div class="result-buttons">
+    <button class="download" onclick="downloadImage()">BAIXAR</button>
+    <button class="print" onclick="printImage()">IMPRIMIR</button>
+  </div>
 </section>
 
 <script>
@@ -391,7 +372,6 @@ const selectedText = document.getElementById("selectedText");
 let selectedType = "";
 let activeSlot = 0;
 let photos = [];
-
 let dragging = false;
 let lastX = 0;
 let lastY = 0;
@@ -423,7 +403,7 @@ function goToEditor(){
 }
 
 function getSlots(){
-  if(selectedType === "p3red"){
+  if(selectedType.includes("p3")){
     return [
       {x:245,y:100,w:410,h:260},
       {x:245,y:400,w:410,h:260},
@@ -431,13 +411,21 @@ function getSlots(){
     ];
   }
 
-  if(selectedType === "p1red"){
+  if(selectedType.includes("p1")){
     return [
       {x:165,y:150,w:570,h:650}
     ];
   }
 
   return [];
+}
+
+function getFrameColor(){
+  return selectedType.includes("white") ? "white" : "#8b0016";
+}
+
+function getTextColor(){
+  return selectedType.includes("white") ? "#8b0016" : "white";
 }
 
 function setupPhotos(){
@@ -461,7 +449,6 @@ function updateSelectedText(){
 
 fileInput.addEventListener("change", e => {
   const file = e.target.files[0];
-
   if(!file) return;
 
   const currentSlot = activeSlot;
@@ -503,11 +490,7 @@ function fitImage(index){
 
   if(!item.img) return;
 
-  const scale = Math.max(
-    slot.w / item.img.width,
-    slot.h / item.img.height
-  );
-
+  const scale = Math.max(slot.w / item.img.width, slot.h / item.img.height);
   const w = item.img.width * scale * item.zoom;
   const h = item.img.height * scale * item.zoom;
 
@@ -517,7 +500,6 @@ function fitImage(index){
 
 zoomRange.addEventListener("input",()=>{
   const item = photos[activeSlot];
-
   if(!item.img) return;
 
   const oldZoom = item.zoom;
@@ -534,11 +516,7 @@ zoomRange.addEventListener("input",()=>{
 });
 
 function changeZoom(value){
-  zoomRange.value = Math.max(
-    1,
-    Math.min(4, parseFloat(zoomRange.value) + value)
-  );
-
+  zoomRange.value = Math.max(1, Math.min(4, parseFloat(zoomRange.value) + value));
   zoomRange.dispatchEvent(new Event("input"));
 }
 
@@ -555,13 +533,13 @@ function draw(targetCtx = ctx){
 }
 
 function drawFrameBase(c){
-  if(selectedType === "p3red"){
-    c.fillStyle = "#8b0016";
+  c.fillStyle = getFrameColor();
+
+  if(selectedType.includes("p3")){
     c.fillRect(210,50,480,1040);
   }
 
-  if(selectedType === "p1red"){
-    c.fillStyle = "#8b0016";
+  if(selectedType.includes("p1")){
     c.fillRect(120,90,660,900);
   }
 }
@@ -573,11 +551,7 @@ function drawPhotos(c){
     const item = photos[index];
 
     if(item.img){
-      const scale = Math.max(
-        slot.w / item.img.width,
-        slot.h / item.img.height
-      );
-
+      const scale = Math.max(slot.w / item.img.width, slot.h / item.img.height);
       const w = item.img.width * scale * item.zoom;
       const h = item.img.height * scale * item.zoom;
 
@@ -585,9 +559,7 @@ function drawPhotos(c){
       c.beginPath();
       c.rect(slot.x,slot.y,slot.w,slot.h);
       c.clip();
-
       c.drawImage(item.img,item.x,item.y,w,h);
-
       c.restore();
     }
   });
@@ -597,19 +569,19 @@ function drawFrameLines(c){
   const slots = getSlots();
 
   slots.forEach(s=>{
-    c.strokeStyle = "#8b0016";
-    c.lineWidth = selectedType === "p1red" ? 28 : 24;
+    c.strokeStyle = getFrameColor();
+    c.lineWidth = selectedType.includes("p1") ? 28 : 24;
     c.strokeRect(s.x,s.y,s.w,s.h);
   });
 
-  c.fillStyle = "white";
+  c.fillStyle = getTextColor();
 
-  if(selectedType === "p3red"){
+  if(selectedType.includes("p3")){
     c.font = "italic 34px Georgia";
     c.fillText("the most loved edit",255,1035);
   }
 
-  if(selectedType === "p1red"){
+  if(selectedType.includes("p1")){
     c.font = "italic 38px Georgia";
     c.fillText("the most loved edit",245,900);
   }
@@ -620,7 +592,7 @@ function drawActiveSlot(c){
   if(!slot) return;
 
   c.save();
-  c.strokeStyle = "white";
+  c.strokeStyle = selectedType.includes("white") ? "#8b0016" : "white";
   c.lineWidth = 6;
   c.strokeRect(slot.x,slot.y,slot.w,slot.h);
   c.restore();
@@ -655,12 +627,7 @@ function startDrag(e){
   for(let i=0;i<slots.length;i++){
     const s = slots[i];
 
-    if(
-      p.x >= s.x &&
-      p.x <= s.x + s.w &&
-      p.y >= s.y &&
-      p.y <= s.y + s.h
-    ){
+    if(p.x >= s.x && p.x <= s.x + s.w && p.y >= s.y && p.y <= s.y + s.h){
       activeSlot = i;
       updateSelectedText();
       zoomRange.value = photos[i].zoom;
