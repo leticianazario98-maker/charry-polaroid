@@ -12,31 +12,24 @@ const rctx = resultCanvas.getContext("2d");
 
 const photoInput = document.getElementById("photoInput");
 const zoomRange = document.getElementById("zoomRange");
+const slotButtons = document.getElementById("slotButtons");
+const photoInfo = document.getElementById("photoInfo");
 
 let selectedLayout = "classic-red";
-let photo = null;
-let photoX = 0;
-let photoY = 0;
-let zoom = 1;
+let activeSlotIndex = 0;
 let dragging = false;
 let lastX = 0;
 let lastY = 0;
+let photos = [];
 
 function showPage(name) {
   Object.values(pages).forEach(page => page.classList.remove("active"));
   pages[name].classList.add("active");
-  if (name === "editor") drawEditor();
-}
 
-function getCanvasPoint(event, canvas) {
-  const rect = canvas.getBoundingClientRect();
-  const clientX = event.touches ? event.touches[0].clientX : event.clientX;
-  const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-
-  return {
-    x: (clientX - rect.left) * (canvas.width / rect.width),
-    y: (clientY - rect.top) * (canvas.height / rect.height)
-  };
+  if (name === "editor") {
+    buildSlotButtons();
+    drawEditor();
+  }
 }
 
 function frameConfig() {
@@ -80,37 +73,85 @@ function frameConfig() {
   };
 }
 
-function fitPhotoToSlot(slot) {
-  if (!photo) return;
+function resetPhotosForLayout() {
+  const total = frameConfig().slots.length;
 
-  const scale = Math.max(slot.w / photo.width, slot.h / photo.height);
-  const drawW = photo.width * scale * zoom;
-  const drawH = photo.height * scale * zoom;
+  photos = Array.from({ length: total }, () => ({
+    image: null,
+    x: 0,
+    y: 0,
+    zoom: 1
+  }));
 
-  photoX = slot.x + (slot.w - drawW) / 2;
-  photoY = slot.y + (slot.h - drawH) / 2;
+  activeSlotIndex = 0;
+  zoomRange.value = "1";
+  photoInput.value = "";
 }
 
-function drawPhoto(ctx, slot) {
-  if (!photo) {
+function getActivePhoto() {
+  return photos[activeSlotIndex];
+}
+
+function buildSlotButtons() {
+  const total = frameConfig().slots.length;
+  slotButtons.innerHTML = "";
+
+  for (let i = 0; i < total; i++) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "slot-btn" + (i === activeSlotIndex ? " active" : "");
+    btn.textContent = total === 1 ? "Foto" : `Foto ${i + 1}`;
+
+    btn.addEventListener("click", () => {
+      activeSlotIndex = i;
+      zoomRange.value = photos[i].zoom;
+      photoInput.value = "";
+      buildSlotButtons();
+      drawEditor();
+    });
+
+    slotButtons.appendChild(btn);
+  }
+
+  photoInfo.textContent = total === 1
+    ? "Escolha a foto da sua polaroid."
+    : `Escolha e ajuste a foto ${activeSlotIndex + 1} de ${total}.`;
+}
+
+function fitPhotoToSlot(slotIndex) {
+  const item = photos[slotIndex];
+  const slot = frameConfig().slots[slotIndex];
+
+  if (!item || !item.image) return;
+
+  const scale = Math.max(slot.w / item.image.width, slot.h / item.image.height);
+  const drawW = item.image.width * scale * item.zoom;
+  const drawH = item.image.height * scale * item.zoom;
+
+  item.x = slot.x + (slot.w - drawW) / 2;
+  item.y = slot.y + (slot.h - drawH) / 2;
+}
+
+function drawPhoto(ctx, slot, item, index) {
+  if (!item || !item.image) {
     ctx.fillStyle = "#d8d3d0";
     ctx.fillRect(slot.x, slot.y, slot.w, slot.h);
     ctx.fillStyle = "#777";
-    ctx.font = "36px Arial";
+    ctx.font = "30px Arial";
     ctx.textAlign = "center";
-    ctx.fillText("adicione sua foto", slot.x + slot.w / 2, slot.y + slot.h / 2);
+    ctx.fillText(`foto ${index + 1}`, slot.x + slot.w / 2, slot.y + slot.h / 2);
     return;
   }
 
-  const baseScale = Math.max(slot.w / photo.width, slot.h / photo.height);
-  const drawW = photo.width * baseScale * zoom;
-  const drawH = photo.height * baseScale * zoom;
+  const scale = Math.max(slot.w / item.image.width, slot.h / item.image.height);
+  const drawW = item.image.width * scale * item.zoom;
+  const drawH = item.image.height * scale * item.zoom;
 
   ctx.save();
   ctx.beginPath();
   ctx.rect(slot.x, slot.y, slot.w, slot.h);
   ctx.clip();
-  ctx.drawImage(photo, photoX, photoY, drawW, drawH);
+  ctx.drawImage(item.image, item.x, item.y, drawW, drawH);
   ctx.restore();
 }
 
@@ -128,8 +169,8 @@ function drawFrame(ctx) {
     drawFilmHoles(ctx, cfg.canvasW, cfg.canvasH);
   }
 
-  cfg.slots.forEach(slot => {
-    drawPhoto(ctx, slot);
+  cfg.slots.forEach((slot, index) => {
+    drawPhoto(ctx, slot, photos[index], index);
   });
 
   if (cfg.type === "classic") {
@@ -142,6 +183,7 @@ function drawFrame(ctx) {
 
 function drawFilmHoles(ctx, w, h) {
   ctx.fillStyle = "#f5efec";
+
   for (let y = 35; y < h; y += 55) {
     ctx.fillRect(28, y, 28, 28);
     ctx.fillRect(w - 56, y, 28, 28);
@@ -156,16 +198,40 @@ function drawResult() {
   drawFrame(rctx);
 }
 
-document.getElementById("startBtn").addEventListener("click", () => showPage("layouts"));
-document.getElementById("backToCover").addEventListener("click", () => showPage("cover"));
-document.getElementById("backToLayouts").addEventListener("click", () => showPage("layouts"));
-document.getElementById("editAgainBtn").addEventListener("click", () => showPage("editor"));
+function getCanvasPoint(event, canvas) {
+  const rect = canvas.getBoundingClientRect();
+  const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+  const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+
+  return {
+    x: (clientX - rect.left) * (canvas.width / rect.width),
+    y: (clientY - rect.top) * (canvas.height / rect.height)
+  };
+}
+
+function getSlotByPoint(point) {
+  const slots = frameConfig().slots;
+
+  for (let i = 0; i < slots.length; i++) {
+    const slot = slots[i];
+
+    if (
+      point.x >= slot.x &&
+      point.x <= slot.x + slot.w &&
+      point.y >= slot.y &&
+      point.y <= slot.y + slot.h
+    ) {
+      return i;
+    }
+  }
+
+  return -1;
+}
 
 document.querySelectorAll(".layout-card").forEach(card => {
   card.addEventListener("click", () => {
     selectedLayout = card.dataset.layout;
-    const firstSlot = frameConfig().slots[0];
-    fitPhotoToSlot(firstSlot);
+    resetPhotosForLayout();
     showPage("editor");
   });
 });
@@ -175,29 +241,42 @@ photoInput.addEventListener("change", event => {
   if (!file) return;
 
   const reader = new FileReader();
+
   reader.onload = () => {
-    photo = new Image();
-    photo.onload = () => {
-      zoom = 1;
+    const img = new Image();
+
+    img.onload = () => {
+      photos[activeSlotIndex] = {
+        image: img,
+        x: 0,
+        y: 0,
+        zoom: 1
+      };
+
       zoomRange.value = "1";
-      fitPhotoToSlot(frameConfig().slots[0]);
+      fitPhotoToSlot(activeSlotIndex);
       drawEditor();
     };
-    photo.src = reader.result;
+
+    img.src = reader.result;
   };
+
   reader.readAsDataURL(file);
 });
 
 zoomRange.addEventListener("input", () => {
-  const oldZoom = zoom;
-  zoom = Number(zoomRange.value);
+  const item = getActivePhoto();
+  if (!item || !item.image) return;
 
-  const slot = frameConfig().slots[0];
+  const oldZoom = item.zoom;
+  item.zoom = Number(zoomRange.value);
+
+  const slot = frameConfig().slots[activeSlotIndex];
   const centerX = slot.x + slot.w / 2;
   const centerY = slot.y + slot.h / 2;
 
-  photoX = centerX - (centerX - photoX) * (zoom / oldZoom);
-  photoY = centerY - (centerY - photoY) * (zoom / oldZoom);
+  item.x = centerX - (centerX - item.x) * (item.zoom / oldZoom);
+  item.y = centerY - (centerY - item.y) * (item.zoom / oldZoom);
 
   drawEditor();
 });
@@ -213,31 +292,41 @@ document.getElementById("zoomOut").addEventListener("click", () => {
 });
 
 editorCanvas.addEventListener("mousedown", startDrag);
-editorCanvas.addEventListener("touchstart", startDrag, { passive: false });
-
 window.addEventListener("mousemove", drag);
-window.addEventListener("touchmove", drag, { passive: false });
-
 window.addEventListener("mouseup", endDrag);
-window.addEventListener("touchend", endDrag);
 
 function startDrag(event) {
-  if (!photo) return;
-  event.preventDefault();
+  const point = getCanvasPoint(event, editorCanvas);
+  const clickedSlot = getSlotByPoint(point);
+
+  if (clickedSlot !== -1) {
+    activeSlotIndex = clickedSlot;
+    zoomRange.value = photos[activeSlotIndex].zoom;
+    buildSlotButtons();
+  }
+
+  const item = getActivePhoto();
+  if (!item || !item.image) return;
+
   dragging = true;
-  const p = getCanvasPoint(event, editorCanvas);
-  lastX = p.x;
-  lastY = p.y;
+  lastX = point.x;
+  lastY = point.y;
 }
 
 function drag(event) {
-  if (!dragging || !photo) return;
-  event.preventDefault();
-  const p = getCanvasPoint(event, editorCanvas);
-  photoX += p.x - lastX;
-  photoY += p.y - lastY;
-  lastX = p.x;
-  lastY = p.y;
+  if (!dragging) return;
+
+  const item = getActivePhoto();
+  if (!item || !item.image) return;
+
+  const point = getCanvasPoint(event, editorCanvas);
+
+  item.x += point.x - lastX;
+  item.y += point.y - lastY;
+
+  lastX = point.x;
+  lastY = point.y;
+
   drawEditor();
 }
 
@@ -252,6 +341,7 @@ document.getElementById("finishBtn").addEventListener("click", () => {
 
 document.getElementById("downloadBtn").addEventListener("click", () => {
   drawResult();
+
   const link = document.createElement("a");
   link.download = "minha-polaroid.png";
   link.href = resultCanvas.toDataURL("image/png");
@@ -263,4 +353,10 @@ document.getElementById("printBtn").addEventListener("click", () => {
   window.print();
 });
 
+document.getElementById("startBtn").addEventListener("click", () => showPage("layouts"));
+document.getElementById("backToCover").addEventListener("click", () => showPage("cover"));
+document.getElementById("backToLayouts").addEventListener("click", () => showPage("layouts"));
+document.getElementById("editAgainBtn").addEventListener("click", () => showPage("editor"));
+
+resetPhotosForLayout();
 drawEditor();
