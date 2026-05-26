@@ -135,7 +135,63 @@
     </div>
   </section>
 
-  <script src="./script.js?v=10"></script>
+  <script>
+let selectedFrame = "";
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+}
+
+function goToChoice() {
+  showPage("choicePage");
+}
+
+function selectFrame(frame, element) {
+  selectedFrame = frame;
+
+  document.querySelectorAll(".frame-option").forEach(item => {
+    item.classList.remove("active");
+  });
+
+  element.classList.add("active");
+}
+
+function goToEditor() {
+  if (selectedFrame === "") {
+    alert("Escolha uma polaroid antes de continuar.");
+    return;
+  }
+
+  showPage("editorPage");
+}
+
+function finishEdit() {
+  showPage("resultPage");
+  document.querySelector(".result").classList.add("active");
+}
+
+function zoomIn() {
+  const zoom = document.getElementById("zoom");
+  zoom.value = Number(zoom.value) + 0.1;
+}
+
+function zoomOut() {
+  const zoom = document.getElementById("zoom");
+  zoom.value = Number(zoom.value) - 0.1;
+}
+
+function downloadImage() {
+  alert("Download será configurado depois.");
+}
+
+function printImage() {
+  alert("Impressão será configurada depois.");
+}
+</script>
 
 </body>
 </html>
