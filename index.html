@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,18 +10,23 @@
 <link rel="stylesheet" href="style.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-<!-- CAPA -->
+<!-- HOME -->
 
 <section id="coverPage" class="page active">
+
   <div class="cover">
-    <button onclick="goToChoice()">
+
+    <button class="start-btn" onclick="goToChoice()">
       CRIE SUA POLAROID
     </button>
+
   </div>
+
 </section>
 
 <!-- ESCOLHA -->
@@ -35,8 +41,10 @@
 
       <!-- VERMELHA 3 -->
 
-      <div class="mock frame-option frame-3 red"
-           onclick="selectFrame('red3',this)">
+      <div
+        class="mock frame-option frame-3 red"
+        onclick="selectFrame('red3', this)"
+      >
 
         <div></div>
         <div></div>
@@ -48,8 +56,10 @@
 
       <!-- VERMELHA 1 -->
 
-      <div class="mock frame-option frame-1 red"
-           onclick="selectFrame('red1',this)">
+      <div
+        class="mock frame-option frame-1 red"
+        onclick="selectFrame('red1', this)"
+      >
 
         <div></div>
 
@@ -59,8 +69,10 @@
 
       <!-- BRANCA 3 -->
 
-      <div class="mock frame-option frame-3 white"
-           onclick="selectFrame('white3',this)">
+      <div
+        class="mock frame-option frame-3 white"
+        onclick="selectFrame('white3', this)"
+      >
 
         <div></div>
         <div></div>
@@ -72,8 +84,10 @@
 
       <!-- BRANCA 1 -->
 
-      <div class="mock frame-option frame-1 white"
-           onclick="selectFrame('white1',this)">
+      <div
+        class="mock frame-option frame-1 white"
+        onclick="selectFrame('white1', this)"
+      >
 
         <div></div>
 
@@ -98,6 +112,8 @@
   <div class="editor">
 
     <div class="editor-box">
+
+      <!-- PAINEL -->
 
       <div class="panel">
 
@@ -157,9 +173,15 @@
 
       </div>
 
+      <!-- PREVIEW -->
+
       <div class="preview">
 
-        <canvas id="canvas" width="700" height="900"></canvas>
+        <canvas
+          id="canvas"
+          width="700"
+          height="900"
+        ></canvas>
 
       </div>
 
@@ -175,15 +197,255 @@
 
   <div class="result active">
 
-    <canvas id="finalCanvas" width="700" height="900"></canvas>
+    <canvas
+      id="finalCanvas"
+      width="700"
+      height="900"
+    ></canvas>
 
     <div class="result-buttons">
 
-      <button class="download" onclick="downloadImage()">
+      <button
+        class="download"
+        onclick="downloadImage()"
+      >
         BAIXAR
       </button>
 
-      <button class="print" onclick="printImage()">
+      <button
+        class="print"
+        onclick="printImage()"
+      >
+        IMPRIMIR
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Most Loved Edit</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- HOME -->
+
+<section id="coverPage" class="page active">
+
+  <div class="cover">
+
+    <button class="start-btn" onclick="goToChoice()">
+      CRIE SUA POLAROID
+    </button>
+
+  </div>
+
+</section>
+
+<!-- ESCOLHA -->
+
+<section id="choicePage" class="page">
+
+  <div class="choice">
+
+    <h1>Escolha sua polaroid</h1>
+
+    <div class="frames">
+
+      <!-- VERMELHA 3 -->
+
+      <div
+        class="mock frame-option frame-3 red"
+        onclick="selectFrame('red3', this)"
+      >
+
+        <div></div>
+        <div></div>
+        <div></div>
+
+        <strong>the most loved edit</strong>
+
+      </div>
+
+      <!-- VERMELHA 1 -->
+
+      <div
+        class="mock frame-option frame-1 red"
+        onclick="selectFrame('red1', this)"
+      >
+
+        <div></div>
+
+        <strong>the most loved edit</strong>
+
+      </div>
+
+      <!-- BRANCA 3 -->
+
+      <div
+        class="mock frame-option frame-3 white"
+        onclick="selectFrame('white3', this)"
+      >
+
+        <div></div>
+        <div></div>
+        <div></div>
+
+        <strong>the most loved edit</strong>
+
+      </div>
+
+      <!-- BRANCA 1 -->
+
+      <div
+        class="mock frame-option frame-1 white"
+        onclick="selectFrame('white1', this)"
+      >
+
+        <div></div>
+
+        <strong>the most loved edit</strong>
+
+      </div>
+
+    </div>
+
+    <button class="btn" onclick="goToEditor()">
+      CONTINUAR
+    </button>
+
+  </div>
+
+</section>
+
+<!-- EDITOR -->
+
+<section id="editorPage" class="page">
+
+  <div class="editor">
+
+    <div class="editor-box">
+
+      <!-- PAINEL -->
+
+      <div class="panel">
+
+        <h1>Ajuste sua foto</h1>
+
+        <p>
+          Clique em um quadradinho da polaroid e
+          depois em inserir foto.
+        </p>
+
+        <label class="upload">
+
+          INSERIR FOTO
+
+          <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+          >
+
+        </label>
+
+        <input
+          type="range"
+          id="zoom"
+          class="zoom"
+          min="0.5"
+          max="3"
+          step="0.1"
+          value="1"
+        >
+
+        <div class="zoom-buttons">
+
+          <button onclick="zoomOut()">
+            - zoom
+          </button>
+
+          <button onclick="zoomIn()">
+            + zoom
+          </button>
+
+        </div>
+
+        <p id="selectedText">
+          Quadrado selecionado: Foto 1
+        </p>
+
+        <p>
+          Depois arraste a imagem dentro do quadro
+          para ajustar.
+        </p>
+
+        <button class="btn" onclick="finishEdit()">
+          FINALIZAR
+        </button>
+
+      </div>
+
+      <!-- PREVIEW -->
+
+      <div class="preview">
+
+        <canvas
+          id="canvas"
+          width="700"
+          height="900"
+        ></canvas>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- RESULTADO -->
+
+<section id="resultPage" class="page">
+
+  <div class="result active">
+
+    <canvas
+      id="finalCanvas"
+      width="700"
+      height="900"
+    ></canvas>
+
+    <div class="result-buttons">
+
+      <button
+        class="download"
+        onclick="downloadImage()"
+      >
+        BAIXAR
+      </button>
+
+      <button
+        class="print"
+        onclick="printImage()"
+      >
         IMPRIMIR
       </button>
 
