@@ -6,6 +6,7 @@
 <title>The Most Loved Edit</title>
 
 <style>
+
 *{
   margin:0;
   padding:0;
@@ -14,8 +15,8 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:#f8f1ee;
-  color:#111;
+  background:#f7f1ef;
+  overflow-x:hidden;
 }
 
 .page{
@@ -30,9 +31,9 @@ body{
 /* CAPA */
 
 .cover{
-  position:relative;
   min-height:100vh;
-  background:url("capa.jpg") center/cover no-repeat;
+  background:url("./capa.jpg") center/cover no-repeat;
+  position:relative;
 }
 
 .cover button{
@@ -40,26 +41,27 @@ body{
   left:50%;
   bottom:10%;
   transform:translateX(-50%);
-  background:#a00012;
-  color:white;
+  width:260px;
+  height:58px;
   border:none;
   border-radius:50px;
-  padding:18px 42px;
-  font-size:14px;
-  letter-spacing:2px;
+  background:#8b0016;
+  color:white;
+  letter-spacing:3px;
+  font-size:12px;
   cursor:pointer;
 }
 
 /* ESCOLHA */
 
 .choice{
-  background:white;
-  padding:60px 20px;
+  padding:70px 20px;
+  background:#f7f1ef;
   text-align:center;
 }
 
 .choice h1{
-  font-size:42px;
+  font-size:64px;
   font-weight:300;
   margin-bottom:60px;
 }
@@ -67,19 +69,20 @@ body{
 .frames{
   display:flex;
   justify-content:center;
-  align-items:flex-start;
   gap:35px;
   flex-wrap:wrap;
 }
 
 .frame-option{
-  width:220px;
+  width:180px;
   cursor:pointer;
   transition:.3s;
+  border-radius:25px;
+  padding:10px;
 }
 
 .frame-option.active{
-  transform:scale(1.06);
+  transform:scale(1.08);
 }
 
 .frame-option img{
@@ -88,14 +91,14 @@ body{
 }
 
 .btn{
-  margin-top:45px;
-  width:220px;
-  height:56px;
+  margin-top:50px;
+  width:260px;
+  height:58px;
   border:none;
   border-radius:50px;
-  background:#750014;
+  background:#8b0016;
   color:white;
-  letter-spacing:3px;
+  letter-spacing:4px;
   font-size:12px;
   cursor:pointer;
 }
@@ -103,14 +106,13 @@ body{
 /* EDITOR */
 
 .editor{
-  background:url("pagina.jpg") center/cover no-repeat;
-  min-height:100vh;
-  padding:50px 20px;
+  background:url("./pagina.jpg") center/cover no-repeat;
+  padding:40px 20px;
 }
 
 .editor-box{
-  max-width:1200px;
-  margin:0 auto;
+  max-width:1250px;
+  margin:auto;
   display:grid;
   grid-template-columns:360px 1fr;
   gap:40px;
@@ -118,29 +120,27 @@ body{
 }
 
 .panel{
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.95);
   padding:35px;
-  border-radius:28px;
+  border-radius:30px;
 }
 
 .panel h1{
-  font-size:38px;
+  font-size:42px;
   font-weight:300;
   margin-bottom:20px;
 }
 
 .panel p{
-  font-size:15px;
-  color:#333;
-  margin-bottom:22px;
-  line-height:1.4;
+  line-height:1.5;
+  margin-bottom:20px;
 }
 
 .slot-buttons{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:8px;
-  margin-bottom:22px;
+  margin-bottom:20px;
 }
 
 .slot-buttons.one{
@@ -149,29 +149,28 @@ body{
 
 .slot-btn{
   height:42px;
-  border:1px solid #750014;
-  background:white;
-  color:#750014;
   border-radius:50px;
+  border:1px solid #8b0016;
+  background:white;
+  color:#8b0016;
   cursor:pointer;
 }
 
 .slot-btn.active{
-  background:#750014;
+  background:#8b0016;
   color:white;
 }
 
 .upload{
   width:100%;
   height:54px;
-  background:#750014;
-  color:white;
   border-radius:50px;
+  background:#8b0016;
+  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
   letter-spacing:2px;
-  font-size:12px;
   cursor:pointer;
   margin-bottom:25px;
 }
@@ -182,27 +181,26 @@ body{
 
 .zoom{
   width:100%;
-  accent-color:#750014;
+  accent-color:#8b0016;
 }
 
-.zoom-actions{
+.zoom-buttons{
   display:flex;
   gap:10px;
   margin-top:15px;
 }
 
-.zoom-actions button,
-.secondary{
+.zoom-buttons button{
   flex:1;
   height:44px;
-  border:1px solid #750014;
-  background:white;
-  color:#750014;
   border-radius:50px;
+  border:1px solid #8b0016;
+  background:white;
+  color:#8b0016;
   cursor:pointer;
 }
 
-.preview-wrap{
+.preview{
   display:flex;
   justify-content:center;
   align-items:center;
@@ -210,20 +208,19 @@ body{
 
 canvas{
   max-width:100%;
-  max-height:78vh;
+  max-height:80vh;
 }
 
 /* RESULTADO */
 
 .result{
-  background:url("final.jpg") center/cover no-repeat;
-  min-height:100vh;
-  padding:40px 20px;
+  background:url("./final.jpg") center/cover no-repeat;
   display:none;
   align-items:center;
   justify-content:center;
   flex-direction:column;
   gap:25px;
+  padding:40px;
 }
 
 .result.active{
@@ -236,139 +233,228 @@ canvas{
 }
 
 .result-buttons button{
-  width:160px;
-  height:50px;
+  width:180px;
+  height:52px;
   border:none;
   border-radius:50px;
   cursor:pointer;
-  letter-spacing:2px;
+  letter-spacing:3px;
 }
 
 .download{
-  background:#750014;
+  background:#8b0016;
   color:white;
 }
 
 .print{
   background:white;
-  color:#750014;
+  color:#8b0016;
 }
 
 @media(max-width:900px){
+
+  .choice h1{
+    font-size:42px;
+  }
+
   .editor-box{
     grid-template-columns:1fr;
   }
 
-  .panel{
-    order:2;
-  }
-
-  .preview-wrap{
-    order:1;
-  }
 }
+
 </style>
 </head>
 
 <body>
 
 <!-- CAPA -->
+
 <section class="page cover active" id="coverPage">
-  <button onclick="goToChoice()">crie sua polaroid</button>
+
+<button onclick="goToChoice()">
+CRIE SUA POLAROID
+</button>
+
 </section>
 
 <!-- ESCOLHA -->
+
 <section class="page choice" id="choicePage">
-  <h1>Escolha sua polaroid</h1>
 
-  <div class="frames">
-    <div class="frame-option" onclick="selectFrame(this,'polaroid1.png','p1')">
-      <img src="polaroid1.png">
-    </div>
+<h1>Escolha sua polaroid</h1>
 
-    <div class="frame-option" onclick="selectFrame(this,'polaroid3.png','p3')">
-      <img src="polaroid3.png">
-    </div>
+<div class="frames">
 
-    <div class="frame-option" onclick="selectFrame(this,'polaroid4.png','p4')">
-      <img src="polaroid4.png">
-    </div>
-  </div>
+<div class="frame-option"
+onclick="selectFrame(this,'polaroid1.png','p1')">
+<img src="./polaroid1.png">
+</div>
 
-  <button class="btn" onclick="goToEditor()">CONTINUAR</button>
+<div class="frame-option"
+onclick="selectFrame(this,'polaroid2.png','p2')">
+<img src="./polaroid2.png">
+</div>
+
+<div class="frame-option"
+onclick="selectFrame(this,'polaroid3.png','p3')">
+<img src="./polaroid3.png">
+</div>
+
+<div class="frame-option"
+onclick="selectFrame(this,'polaroid4.png','p4')">
+<img src="./polaroid4.png">
+</div>
+
+</div>
+
+<button class="btn"
+onclick="goToEditor()">
+CONTINUAR
+</button>
+
 </section>
 
 <!-- EDITOR -->
+
 <section class="page editor" id="editorPage">
-  <div class="editor-box">
 
-    <div class="panel">
-      <h1>Ajuste sua foto</h1>
+<div class="editor-box">
 
-      <p id="photoText">
-        Escolha uma foto para cada quadradinho da moldura.
-      </p>
+<div class="panel">
 
-      <div class="slot-buttons" id="slotButtons"></div>
+<h1>Ajuste sua foto</h1>
 
-      <label class="upload">
-        INSERIR FOTO
-        <input type="file" id="fileInput" accept="image/*">
-      </label>
+<p id="photoText">
+Escolha uma foto para cada quadradinho.
+</p>
 
-      <input type="range" min="1" max="4" step="0.01" value="1" class="zoom" id="zoomRange">
+<div class="slot-buttons"
+id="slotButtons"></div>
 
-      <div class="zoom-actions">
-        <button onclick="changeZoom(-0.1)">- zoom</button>
-        <button onclick="changeZoom(0.1)">+ zoom</button>
-      </div>
+<label class="upload">
 
-      <p style="margin-top:22px;">
-        Clique no quadro que deseja editar. Depois arraste a imagem para ajustar.
-      </p>
+INSERIR FOTO
 
-      <button class="btn" onclick="finish()">FINALIZAR</button>
-    </div>
+<input type="file"
+id="fileInput"
+accept="image/*">
 
-    <div class="preview-wrap">
-      <canvas id="canvas" width="900" height="1300"></canvas>
-    </div>
+</label>
 
-  </div>
+<input type="range"
+min="1"
+max="4"
+step="0.01"
+value="1"
+class="zoom"
+id="zoomRange">
+
+<div class="zoom-buttons">
+
+<button onclick="changeZoom(-0.1)">
+- zoom
+</button>
+
+<button onclick="changeZoom(0.1)">
++ zoom
+</button>
+
+</div>
+
+<p style="margin-top:20px;">
+Arraste a imagem dentro do quadro para ajustar.
+</p>
+
+<button class="btn"
+onclick="finish()">
+FINALIZAR
+</button>
+
+</div>
+
+<div class="preview">
+
+<canvas id="canvas"
+width="900"
+height="1300"></canvas>
+
+</div>
+
+</div>
+
 </section>
 
 <!-- RESULTADO -->
-<section class="page result" id="resultPage">
-  <canvas id="resultCanvas" width="900" height="1300"></canvas>
 
-  <div class="result-buttons">
-    <button class="download" onclick="downloadImage()">BAIXAR</button>
-    <button class="print" onclick="printImage()">IMPRIMIR</button>
-  </div>
+<section class="page result"
+id="resultPage">
+
+<canvas id="resultCanvas"
+width="900"
+height="1300"></canvas>
+
+<div class="result-buttons">
+
+<button class="download"
+onclick="downloadImage()">
+BAIXAR
+</button>
+
+<button class="print"
+onclick="printImage()">
+IMPRIMIR
+</button>
+
+</div>
+
 </section>
 
 <script>
-const coverPage = document.getElementById("coverPage");
-const choicePage = document.getElementById("choicePage");
-const editorPage = document.getElementById("editorPage");
-const resultPage = document.getElementById("resultPage");
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const coverPage =
+document.getElementById("coverPage");
 
-const resultCanvas = document.getElementById("resultCanvas");
-const rctx = resultCanvas.getContext("2d");
+const choicePage =
+document.getElementById("choicePage");
 
-const fileInput = document.getElementById("fileInput");
-const zoomRange = document.getElementById("zoomRange");
-const slotButtons = document.getElementById("slotButtons");
-const photoText = document.getElementById("photoText");
+const editorPage =
+document.getElementById("editorPage");
+
+const resultPage =
+document.getElementById("resultPage");
+
+const canvas =
+document.getElementById("canvas");
+
+const ctx =
+canvas.getContext("2d");
+
+const resultCanvas =
+document.getElementById("resultCanvas");
+
+const rctx =
+resultCanvas.getContext("2d");
+
+const fileInput =
+document.getElementById("fileInput");
+
+const zoomRange =
+document.getElementById("zoomRange");
+
+const slotButtons =
+document.getElementById("slotButtons");
+
+const photoText =
+document.getElementById("photoText");
 
 let selectedFrame = "";
 let selectedType = "";
+
 let frameImage = new Image();
 
 let activeSlot = 0;
+
 let photos = [];
 
 let dragging = false;
@@ -376,265 +462,471 @@ let lastX = 0;
 let lastY = 0;
 
 function show(page){
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  page.classList.add("active");
+
+document.querySelectorAll(".page")
+.forEach(p => p.classList.remove("active"));
+
+page.classList.add("active");
+
 }
 
 function goToChoice(){
-  show(choicePage);
+show(choicePage);
 }
 
-function selectFrame(el, frame, type){
-  document.querySelectorAll(".frame-option").forEach(item => item.classList.remove("active"));
-  el.classList.add("active");
+function selectFrame(el,frame,type){
 
-  selectedFrame = frame;
-  selectedType = type;
+document.querySelectorAll(".frame-option")
+.forEach(i => i.classList.remove("active"));
+
+el.classList.add("active");
+
+selectedFrame = frame;
+selectedType = type;
+
 }
 
 function goToEditor(){
-  if(!selectedFrame){
-    alert("Escolha uma polaroid");
-    return;
-  }
 
-  frameImage.src = selectedFrame;
-  frameImage.onload = () => {
-    setupPhotos();
-    buildSlotButtons();
-    draw();
-    show(editorPage);
-  };
+if(!selectedFrame){
+alert("Escolha uma polaroid");
+return;
+}
+
+frameImage.src = "./" + selectedFrame;
+
+frameImage.onload = () => {
+
+setupPhotos();
+buildButtons();
+draw();
+
+show(editorPage);
+
+};
+
 }
 
 function getSlots(){
-  if(selectedType === "p1"){
-    return [
-      {x:150,y:150,w:600,h:780}
-    ];
-  }
 
-  if(selectedType === "p3"){
-    return [
-      {x:170,y:145,w:560,h:275},
-      {x:170,y:455,w:560,h:275},
-      {x:170,y:765,w:560,h:275}
-    ];
-  }
+if(selectedType === "p1"){
 
-  return [
-    {x:170,y:135,w:560,h:255},
-    {x:170,y:430,w:560,h:255},
-    {x:170,y:725,w:560,h:255},
-    {x:170,y:1020,w:560,h:255}
-  ];
+return [
+{x:150,y:140,w:600,h:850}
+];
+
+}
+
+if(selectedType === "p2"){
+
+return [
+{x:150,y:140,w:600,h:850}
+];
+
+}
+
+if(selectedType === "p3"){
+
+return [
+
+{x:170,y:150,w:560,h:250},
+
+{x:170,y:450,w:560,h:250},
+
+{x:170,y:750,w:560,h:250}
+
+];
+
+}
+
+if(selectedType === "p4"){
+
+return [
+
+{x:170,y:110,w:560,h:220},
+
+{x:170,y:390,w:560,h:220},
+
+{x:170,y:670,w:560,h:220},
+
+{x:170,y:950,w:560,h:220}
+
+];
+
+}
+
+return [];
+
 }
 
 function setupPhotos(){
-  const total = getSlots().length;
 
-  photos = Array.from({length:total}, () => ({
-    img:null,
-    x:0,
-    y:0,
-    zoom:1
-  }));
+const total =
+getSlots().length;
 
-  activeSlot = 0;
-  zoomRange.value = 1;
+photos =
+Array.from({length:total},
+() => ({
+img:null,
+x:0,
+y:0,
+zoom:1
+}));
+
+activeSlot = 0;
+
+zoomRange.value = 1;
+
 }
 
-function buildSlotButtons(){
-  const total = photos.length;
+function buildButtons(){
 
-  slotButtons.innerHTML = "";
-  slotButtons.classList.toggle("one", total === 1);
+slotButtons.innerHTML = "";
 
-  for(let i=0;i<total;i++){
-    const btn = document.createElement("button");
-    btn.className = "slot-btn" + (i === activeSlot ? " active" : "");
-    btn.innerText = total === 1 ? "Foto" : "Foto " + (i + 1);
+slotButtons.classList.toggle(
+"one",
+photos.length === 1
+);
 
-    btn.onclick = () => {
-      activeSlot = i;
-      zoomRange.value = photos[i].zoom;
-      buildSlotButtons();
-      draw();
-    };
+photos.forEach((_,i)=>{
 
-    slotButtons.appendChild(btn);
-  }
+const btn =
+document.createElement("button");
 
-  photoText.innerText = total === 1
-    ? "Escolha e ajuste sua foto."
-    : `Escolha e ajuste a foto ${activeSlot + 1} de ${total}.`;
+btn.className =
+"slot-btn" +
+(i===activeSlot ? " active":"");
+
+btn.innerText =
+photos.length === 1
+? "Foto"
+: "Foto " + (i+1);
+
+btn.onclick = ()=>{
+
+activeSlot = i;
+
+zoomRange.value =
+photos[i].zoom;
+
+buildButtons();
+
+draw();
+
+};
+
+slotButtons.appendChild(btn);
+
+});
+
 }
 
-fileInput.addEventListener("change", function(e){
-  const file = e.target.files[0];
-  if(!file) return;
+fileInput.addEventListener("change",e=>{
 
-  const reader = new FileReader();
+const file = e.target.files[0];
 
-  reader.onload = function(){
-    const img = new Image();
+if(!file) return;
 
-    img.onload = function(){
-      photos[activeSlot].img = img;
-      photos[activeSlot].zoom = 1;
-      zoomRange.value = 1;
-      fitImage(activeSlot);
-      draw();
-    };
+const reader =
+new FileReader();
 
-    img.src = reader.result;
-  };
+reader.onload = ()=>{
 
-  reader.readAsDataURL(file);
+const img =
+new Image();
+
+img.onload = ()=>{
+
+photos[activeSlot] = {
+img,
+x:0,
+y:0,
+zoom:1
+};
+
+fitImage(activeSlot);
+
+draw();
+
+};
+
+img.src = reader.result;
+
+};
+
+reader.readAsDataURL(file);
+
 });
 
 function fitImage(index){
-  const slot = getSlots()[index];
-  const item = photos[index];
 
-  if(!item.img) return;
+const slot =
+getSlots()[index];
 
-  const scale = Math.max(slot.w / item.img.width, slot.h / item.img.height);
-  const w = item.img.width * scale * item.zoom;
-  const h = item.img.height * scale * item.zoom;
+const item =
+photos[index];
 
-  item.x = slot.x + (slot.w - w) / 2;
-  item.y = slot.y + (slot.h - h) / 2;
+const scale =
+Math.max(
+slot.w / item.img.width,
+slot.h / item.img.height
+);
+
+const w =
+item.img.width *
+scale *
+item.zoom;
+
+const h =
+item.img.height *
+scale *
+item.zoom;
+
+item.x =
+slot.x + (slot.w - w)/2;
+
+item.y =
+slot.y + (slot.h - h)/2;
+
 }
 
-zoomRange.addEventListener("input", function(){
-  const item = photos[activeSlot];
-  if(!item.img) return;
+zoomRange.addEventListener("input",()=>{
 
-  const oldZoom = item.zoom;
-  item.zoom = parseFloat(this.value);
+const item =
+photos[activeSlot];
 
-  const slot = getSlots()[activeSlot];
-  const cx = slot.x + slot.w / 2;
-  const cy = slot.y + slot.h / 2;
+if(!item.img) return;
 
-  item.x = cx - (cx - item.x) * (item.zoom / oldZoom);
-  item.y = cy - (cy - item.y) * (item.zoom / oldZoom);
+item.zoom =
+parseFloat(zoomRange.value);
 
-  draw();
+fitImage(activeSlot);
+
+draw();
+
 });
 
 function changeZoom(value){
-  zoomRange.value = Math.max(1, Math.min(4, parseFloat(zoomRange.value) + value));
-  zoomRange.dispatchEvent(new Event("input"));
+
+zoomRange.value =
+Math.max(
+1,
+Math.min(
+4,
+parseFloat(zoomRange.value)+value
+)
+);
+
+zoomRange.dispatchEvent(
+new Event("input")
+);
+
 }
 
 function draw(targetCtx = ctx){
-  targetCtx.clearRect(0,0,canvas.width,canvas.height);
 
-  const slots = getSlots();
+targetCtx.clearRect(
+0,0,
+canvas.width,
+canvas.height
+);
 
-  slots.forEach((slot,index) => {
-    const item = photos[index];
+const slots =
+getSlots();
 
-    targetCtx.fillStyle = "#fff";
-    targetCtx.fillRect(slot.x,slot.y,slot.w,slot.h);
+slots.forEach((slot,index)=>{
 
-    if(item && item.img){
-      const scale = Math.max(slot.w / item.img.width, slot.h / item.img.height);
-      const w = item.img.width * scale * item.zoom;
-      const h = item.img.height * scale * item.zoom;
+const item =
+photos[index];
 
-      targetCtx.save();
-      targetCtx.beginPath();
-      targetCtx.rect(slot.x,slot.y,slot.w,slot.h);
-      targetCtx.clip();
-      targetCtx.drawImage(item.img,item.x,item.y,w,h);
-      targetCtx.restore();
-    }
-  });
+targetCtx.fillStyle = "white";
 
-  targetCtx.drawImage(frameImage,0,0,canvas.width,canvas.height);
+targetCtx.fillRect(
+slot.x,
+slot.y,
+slot.w,
+slot.h
+);
+
+if(item.img){
+
+const scale =
+Math.max(
+slot.w / item.img.width,
+slot.h / item.img.height
+);
+
+const w =
+item.img.width *
+scale *
+item.zoom;
+
+const h =
+item.img.height *
+scale *
+item.zoom;
+
+targetCtx.save();
+
+targetCtx.beginPath();
+
+targetCtx.rect(
+slot.x,
+slot.y,
+slot.w,
+slot.h
+);
+
+targetCtx.clip();
+
+targetCtx.drawImage(
+item.img,
+item.x,
+item.y,
+w,
+h
+);
+
+targetCtx.restore();
+
 }
 
-canvas.addEventListener("mousedown", startDrag);
-window.addEventListener("mousemove", drag);
-window.addEventListener("mouseup", endDrag);
+});
+
+targetCtx.drawImage(
+frameImage,
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+}
+
+canvas.addEventListener(
+"mousedown",
+startDrag
+);
+
+window.addEventListener(
+"mousemove",
+drag
+);
+
+window.addEventListener(
+"mouseup",
+endDrag
+);
 
 function getMouse(e){
-  const rect = canvas.getBoundingClientRect();
 
-  return {
-    x:(e.clientX - rect.left) * (canvas.width / rect.width),
-    y:(e.clientY - rect.top) * (canvas.height / rect.height)
-  };
+const rect =
+canvas.getBoundingClientRect();
+
+return {
+
+x:
+(e.clientX - rect.left)
+*
+(canvas.width / rect.width),
+
+y:
+(e.clientY - rect.top)
+*
+(canvas.height / rect.height)
+
+};
+
 }
 
 function startDrag(e){
-  const p = getMouse(e);
-  const slots = getSlots();
 
-  slots.forEach((slot,index) => {
-    if(
-      p.x >= slot.x &&
-      p.x <= slot.x + slot.w &&
-      p.y >= slot.y &&
-      p.y <= slot.y + slot.h
-    ){
-      activeSlot = index;
-      zoomRange.value = photos[index].zoom;
-      buildSlotButtons();
-    }
-  });
+const p =
+getMouse(e);
 
-  if(!photos[activeSlot].img) return;
+const item =
+photos[activeSlot];
 
-  dragging = true;
-  lastX = p.x;
-  lastY = p.y;
+if(!item.img) return;
+
+dragging = true;
+
+lastX = p.x;
+lastY = p.y;
+
 }
 
 function drag(e){
-  if(!dragging) return;
 
-  const p = getMouse(e);
-  const item = photos[activeSlot];
+if(!dragging) return;
 
-  item.x += p.x - lastX;
-  item.y += p.y - lastY;
+const p =
+getMouse(e);
 
-  lastX = p.x;
-  lastY = p.y;
+const item =
+photos[activeSlot];
 
-  draw();
+item.x += p.x - lastX;
+item.y += p.y - lastY;
+
+lastX = p.x;
+lastY = p.y;
+
+draw();
+
 }
 
 function endDrag(){
-  dragging = false;
+dragging = false;
 }
 
 function finish(){
-  resultCanvas.width = canvas.width;
-  resultCanvas.height = canvas.height;
 
-  draw(rctx);
-  show(resultPage);
+resultCanvas.width =
+canvas.width;
+
+resultCanvas.height =
+canvas.height;
+
+draw(rctx);
+
+show(resultPage);
+
 }
 
 function downloadImage(){
-  const link = document.createElement("a");
-  link.download = "polaroid-charry.png";
-  link.href = resultCanvas.toDataURL("image/png");
-  link.click();
+
+const link =
+document.createElement("a");
+
+link.download =
+"polaroid-charry.png";
+
+link.href =
+resultCanvas.toDataURL("image/png");
+
+link.click();
+
 }
 
 function printImage(){
-  const data = resultCanvas.toDataURL("image/png");
-  const win = window.open("");
-  win.document.write(`<img src="${data}" style="width:100%">`);
-  win.document.close();
-  win.print();
+
+const data =
+resultCanvas.toDataURL("image/png");
+
+const win =
+window.open("");
+
+win.document.write(
+`<img src="${data}" style="width:100%">`
+);
+
+win.document.close();
+
+win.print();
+
 }
+
 </script>
 
 </body>
