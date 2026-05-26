@@ -321,3 +321,107 @@ canvas {
   background: #b90013;
   color: #fff;
 }
+.mock{
+  position:relative;
+  margin:auto;
+  background:#8b0016;
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.mock div{
+  background:#f7f1ef;
+  border:8px solid #8b0016;
+}
+
+.mock-strip{
+  width:150px;
+  height:430px;
+  padding:25px 18px;
+  display:grid;
+  gap:12px;
+}
+
+.mock-strip div{
+  height:110px;
+}
+
+.side-text{
+  position:absolute;
+  right:-44px;
+  top:160px;
+  transform:rotate(90deg);
+  color:white;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.mock-double{
+  width:180px;
+  height:440px;
+  padding:22px 18px 70px;
+  display:grid;
+  gap:14px;
+}
+
+.mock-double div{
+  height:150px;
+}
+
+.mock-clean{
+  width:170px;
+  height:460px;
+  background:white;
+  padding:20px 14px 82px;
+  display:grid;
+  gap:12px;
+  border:1px solid #eee;
+}
+
+.mock-clean div{
+  border:8px solid white;
+  background:#f7f1ef;
+  height:105px;
+}
+
+.mock-polaroid{
+  width:240px;
+  height:310px;
+  background:white;
+  padding:24px 24px 78px;
+}
+
+.mock-polaroid div{
+  width:100%;
+  height:100%;
+  border:8px solid white;
+  background:#f7f1ef;
+}
+
+.mock strong{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:24px;
+  color:white;
+  font-family:Georgia,serif;
+  font-style:italic;
+  font-weight:300;
+  font-size:18px;
+}
+
+.mock-clean strong,
+.mock-polaroid strong{
+  color:#8b0016;
+}
+
+.tilted-left{
+  transform:rotate(7deg);
+}
+
+.tilted-right{
+  transform:rotate(-3deg);
+}
+
+.tilted-polaroid{
+  transform:rotate(-4deg);
+}
