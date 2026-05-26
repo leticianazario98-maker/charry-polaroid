@@ -3,700 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>The Most Loved Edit</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
+<link rel="stylesheet" href="style.css">
 
-body{
-  font-family:Arial,sans-serif;
-  background:#f7f1ef;
-  overflow-x:hidden;
-}
-
-.page{display:none;min-height:100vh}
-.page.active{display:block}
-
-.cover{
-  min-height:100vh;
-  background:url("./capa.jpg") center/cover no-repeat;
-  position:relative;
-}
-
-.cover button{
-  position:absolute;
-  left:50%;
-  bottom:10%;
-  transform:translateX(-50%);
-  width:260px;
-  height:58px;
-  border:none;
-  border-radius:50px;
-  background:#8b0016;
-  color:white;
-  letter-spacing:3px;
-  cursor:pointer;
-}
-
-.choice{
-  padding:70px 20px;
-  text-align:center;
-}
-
-.choice h1{
-  font-size:54px;
-  font-weight:300;
-  margin-bottom:55px;
-}
-
-.frames{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:55px;
-  flex-wrap:wrap;
-}
-
-.frame-option{
-  cursor:pointer;
-  transition:.3s;
-}
-
-.frame-option.active{
-  transform:scale(1.06);
-}
-
-.mock{
-  position:relative;
-  box-shadow:0 10px 30px rgba(0,0,0,.12);
-}
-
-.frame-3{
-  width:185px;
-  height:540px;
-  padding:22px 18px 95px;
-  display:grid;
-  gap:14px;
-}
-
-.frame-3 div{
-  height:120px;
-}
-
-.frame-1{
-  width:280px;
-  height:360px;
-  padding:24px 24px 95px;
-  transform:rotate(-4deg);
-}
-
-.frame-1 div{
-  width:100%;
-  height:100%;
-}
-
-.red{
-  background:#8b0016;
-}
-
-.red div{
-  background:#f7f1ef;
-}
-
-.white{
-  background:white;
-}
-
-.white div{
-  background:#f7f1ef;
-}
-
-.mock strong{
-  position:absolute;
-  left:18px;
-  right:18px;
-  bottom:28px;
-  text-align:center;
-  font-family:Georgia,serif;
-  font-style:italic;
-  font-size:20px;
-  font-weight:300;
-}
-
-.red strong{
-  color:white;
-}
-
-.white strong{
-  color:#8b0016;
-}
-
-.btn{
-  margin-top:60px;
-  width:260px;
-  height:58px;
-  border:none;
-  border-radius:50px;
-  background:#8b0016;
-  color:white;
-  letter-spacing:4px;
-  cursor:pointer;
-}
-
-.editor{
-  padding:40px 20px;
-}
-
-.editor-box{
-  max-width:1250px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:360px 1fr;
-  gap:40px;
-  align-items:center;
-}
-
-.panel{
-  background:white;
-  padding:35px;
-  border-radius:30px;
-}
-
-.panel h1{
-  font-size:42px;
-  font-weight:300;
-  margin-bottom:20px;
-}
-
-.panel p{
-  line-height:1.5;
-  margin-bottom:20px;
-}
-
-.upload{
-  width:100%;
-  height:58px;
-  border-radius:50px;
-  background:#8b0016;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  letter-spacing:2px;
-  cursor:pointer;
-  margin-bottom:25px;
-}
-
-.upload input{display:none}
-
-.zoom{
-  width:100%;
-  accent-color:#8b0016;
-}
-
-.zoom-buttons{
-  display:flex;
-  gap:10px;
-  margin-top:15px;
-}
-
-.zoom-buttons button{
-  flex:1;
-  height:44px;
-  border-radius:50px;
-  border:1px solid #8b0016;
-  background:white;
-  color:#8b0016;
-  cursor:pointer;
-}
-
-.preview{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-canvas{
-  max-width:100%;
-  max-height:80vh;
-  cursor:pointer;
-}
-
-.result{
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  gap:25px;
-  padding:40px;
-}
-
-.result.active{display:flex}
-
-.result-buttons{
-  display:flex;
-  gap:15px;
-}
-
-.result-buttons button{
-  width:180px;
-  height:52px;
-  border:none;
-  border-radius:50px;
-  cursor:pointer;
-  letter-spacing:3px;
-}
-
-.download{
-  background:#8b0016;
-  color:white;
-}
-
-.print{
-  background:white;
-  color:#8b0016;
-}
-
-@media(max-width:900px){
-  .choice h1{font-size:38px}
-  .editor-box{grid-template-columns:1fr}
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<section class="page cover active" id="coverPage">
-  <button onclick="goToChoice()">CRIE SUA POLAROID</button>
+<!-- CAPA -->
+
+<section id="coverPage" class="page active">
+  <div class="cover">
+    <button onclick="goToChoice()">
+      CRIE SUA POLAROID
+    </button>
+  </div>
 </section>
 
-<section class="page choice" id="choicePage">
-  <h1>Escolha sua polaroid</h1>
+<!-- ESCOLHA -->
 
-  <div class="frames">
+<section id="choicePage" class="page">
 
-    <div class="frame-option" onclick="selectFrame(this,'p3red')">
-      <div class="mock frame-3 red">
-        <div></div><div></div><div></div>
-        <strong>the most loved edit</strong>
-      </div>
-    </div>
+  <div class="choice">
 
-    <div class="frame-option" onclick="selectFrame(this,'p1red')">
-      <div class="mock frame-1 red">
+    <h1>Escolha sua polaroid</h1>
+
+    <div class="frames">
+
+      <!-- VERMELHA 3 -->
+
+      <div class="mock frame-option frame-3 red"
+           onclick="selectFrame('red3',this)">
+
         <div></div>
-        <strong>the most loved edit</strong>
-      </div>
-    </div>
-
-    <div class="frame-option" onclick="selectFrame(this,'p3white')">
-      <div class="mock frame-3 white">
-        <div></div><div></div><div></div>
-        <strong>the most loved edit</strong>
-      </div>
-    </div>
-
-    <div class="frame-option" onclick="selectFrame(this,'p1white')">
-      <div class="mock frame-1 white">
         <div></div>
+        <div></div>
+
         <strong>the most loved edit</strong>
-      </div>
-    </div>
 
-  </div>
-
-  <button class="btn" onclick="goToEditor()">CONTINUAR</button>
-</section>
-
-<section class="page editor" id="editorPage">
-  <div class="editor-box">
-
-    <div class="panel">
-      <h1>Ajuste sua foto</h1>
-
-      <p>Clique no quadradinho da polaroid e depois em inserir foto.</p>
-
-      <label class="upload">
-        INSERIR FOTO
-        <input type="file" id="fileInput" accept="image/*">
-      </label>
-
-      <input type="range" min="1" max="4" step="0.01" value="2" class="zoom" id="zoomRange">
-
-      <div class="zoom-buttons">
-        <button onclick="changeZoom(-0.1)">- zoom</button>
-        <button onclick="changeZoom(0.1)">+ zoom</button>
       </div>
 
-      <p style="margin-top:20px;">
-        Quadrado selecionado: <strong id="selectedText">Foto 1</strong>
-      </p>
+      <!-- VERMELHA 1 -->
 
-      <p>Depois arraste a imagem dentro do quadro para ajustar.</p>
+      <div class="mock frame-option frame-1 red"
+           onclick="selectFrame('red1',this)">
 
-      <button class="btn" onclick="finish()">FINALIZAR</button>
+        <div></div>
+
+        <strong>the most loved edit</strong>
+
+      </div>
+
+      <!-- BRANCA 3 -->
+
+      <div class="mock frame-option frame-3 white"
+           onclick="selectFrame('white3',this)">
+
+        <div></div>
+        <div></div>
+        <div></div>
+
+        <strong>the most loved edit</strong>
+
+      </div>
+
+      <!-- BRANCA 1 -->
+
+      <div class="mock frame-option frame-1 white"
+           onclick="selectFrame('white1',this)">
+
+        <div></div>
+
+        <strong>the most loved edit</strong>
+
+      </div>
+
     </div>
 
-    <div class="preview">
-      <canvas id="canvas" width="900" height="1300"></canvas>
+    <button class="btn" onclick="goToEditor()">
+      CONTINUAR
+    </button>
+
+  </div>
+
+</section>
+
+<!-- EDITOR -->
+
+<section id="editorPage" class="page">
+
+  <div class="editor">
+
+    <div class="editor-box">
+
+      <div class="panel">
+
+        <h1>Ajuste sua foto</h1>
+
+        <p>
+          Clique em um quadradinho da polaroid e
+          depois em inserir foto.
+        </p>
+
+        <label class="upload">
+
+          INSERIR FOTO
+
+          <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+          >
+
+        </label>
+
+        <input
+          type="range"
+          id="zoom"
+          class="zoom"
+          min="0.5"
+          max="3"
+          step="0.1"
+          value="1"
+        >
+
+        <div class="zoom-buttons">
+
+          <button onclick="zoomOut()">
+            - zoom
+          </button>
+
+          <button onclick="zoomIn()">
+            + zoom
+          </button>
+
+        </div>
+
+        <p id="selectedText">
+          Quadrado selecionado: Foto 1
+        </p>
+
+        <p>
+          Depois arraste a imagem dentro do quadro
+          para ajustar.
+        </p>
+
+        <button class="btn" onclick="finishEdit()">
+          FINALIZAR
+        </button>
+
+      </div>
+
+      <div class="preview">
+
+        <canvas id="canvas" width="700" height="900"></canvas>
+
+      </div>
+
     </div>
 
   </div>
+
 </section>
 
-<section class="page result" id="resultPage">
-  <canvas id="resultCanvas" width="900" height="1300"></canvas>
+<!-- RESULTADO -->
 
-  <div class="result-buttons">
-    <button class="download" onclick="downloadImage()">BAIXAR</button>
-    <button class="print" onclick="printImage()">IMPRIMIR</button>
+<section id="resultPage" class="page">
+
+  <div class="result active">
+
+    <canvas id="finalCanvas" width="700" height="900"></canvas>
+
+    <div class="result-buttons">
+
+      <button class="download" onclick="downloadImage()">
+        BAIXAR
+      </button>
+
+      <button class="print" onclick="printImage()">
+        IMPRIMIR
+      </button>
+
+    </div>
+
   </div>
+
 </section>
 
-<script>
-const coverPage = document.getElementById("coverPage");
-const choicePage = document.getElementById("choicePage");
-const editorPage = document.getElementById("editorPage");
-const resultPage = document.getElementById("resultPage");
-
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-const resultCanvas = document.getElementById("resultCanvas");
-const rctx = resultCanvas.getContext("2d");
-
-const fileInput = document.getElementById("fileInput");
-const zoomRange = document.getElementById("zoomRange");
-const selectedText = document.getElementById("selectedText");
-
-let selectedType = "";
-let activeSlot = 0;
-let photos = [];
-let dragging = false;
-let lastX = 0;
-let lastY = 0;
-
-function show(page){
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  page.classList.add("active");
-}
-
-function goToChoice(){
-  show(choicePage);
-}
-
-function selectFrame(el,type){
-  document.querySelectorAll(".frame-option").forEach(i => i.classList.remove("active"));
-  el.classList.add("active");
-  selectedType = type;
-}
-
-function goToEditor(){
-  if(!selectedType){
-    alert("Escolha uma polaroid");
-    return;
-  }
-
-  setupPhotos();
-  draw();
-  show(editorPage);
-}
-
-function getSlots(){
-  if(selectedType.includes("p3")){
-    return [
-      {x:245,y:100,w:410,h:260},
-      {x:245,y:400,w:410,h:260},
-      {x:245,y:700,w:410,h:260}
-    ];
-  }
-
-  if(selectedType.includes("p1")){
-    return [
-      {x:165,y:150,w:570,h:650}
-    ];
-  }
-
-  return [];
-}
-
-function getFrameColor(){
-  return selectedType.includes("white") ? "white" : "#8b0016";
-}
-
-function getTextColor(){
-  return selectedType.includes("white") ? "#8b0016" : "white";
-}
-
-function setupPhotos(){
-  const total = getSlots().length;
-
-  photos = Array.from({length:total},()=>({
-    img:null,
-    x:0,
-    y:0,
-    zoom:2
-  }));
-
-  activeSlot = 0;
-  zoomRange.value = 2;
-  updateSelectedText();
-}
-
-function updateSelectedText(){
-  selectedText.innerText = "Foto " + (activeSlot + 1);
-}
-
-fileInput.addEventListener("change", e => {
-  const file = e.target.files[0];
-  if(!file) return;
-
-  const currentSlot = activeSlot;
-  const reader = new FileReader();
-
-  reader.onload = () => {
-    const img = new Image();
-
-    img.onload = () => {
-      photos[currentSlot] = {
-        img:img,
-        x:0,
-        y:0,
-        zoom:2
-      };
-
-      fitImage(currentSlot);
-      draw();
-
-      if(currentSlot < photos.length - 1){
-        activeSlot = currentSlot + 1;
-        updateSelectedText();
-        zoomRange.value = photos[activeSlot].zoom;
-        draw();
-      }
-
-      fileInput.value = "";
-    };
-
-    img.src = reader.result;
-  };
-
-  reader.readAsDataURL(file);
-});
-
-function fitImage(index){
-  const slot = getSlots()[index];
-  const item = photos[index];
-
-  if(!item.img) return;
-
-  const scale = Math.max(slot.w / item.img.width, slot.h / item.img.height);
-  const w = item.img.width * scale * item.zoom;
-  const h = item.img.height * scale * item.zoom;
-
-  item.x = slot.x + (slot.w - w) / 2;
-  item.y = slot.y + (slot.h - h) / 2;
-}
-
-zoomRange.addEventListener("input",()=>{
-  const item = photos[activeSlot];
-  if(!item.img) return;
-
-  const oldZoom = item.zoom;
-  item.zoom = parseFloat(zoomRange.value);
-
-  const slot = getSlots()[activeSlot];
-  const cx = slot.x + slot.w / 2;
-  const cy = slot.y + slot.h / 2;
-
-  item.x = cx - (cx - item.x) * (item.zoom / oldZoom);
-  item.y = cy - (cy - item.y) * (item.zoom / oldZoom);
-
-  draw();
-});
-
-function changeZoom(value){
-  zoomRange.value = Math.max(1, Math.min(4, parseFloat(zoomRange.value) + value));
-  zoomRange.dispatchEvent(new Event("input"));
-}
-
-function draw(targetCtx = ctx){
-  targetCtx.clearRect(0,0,canvas.width,canvas.height);
-
-  drawFrameBase(targetCtx);
-  drawPhotos(targetCtx);
-  drawFrameLines(targetCtx);
-
-  if(targetCtx === ctx){
-    drawActiveSlot(targetCtx);
-  }
-}
-
-function drawFrameBase(c){
-  c.fillStyle = getFrameColor();
-
-  if(selectedType.includes("p3")){
-    c.fillRect(210,50,480,1040);
-  }
-
-  if(selectedType.includes("p1")){
-    c.fillRect(120,90,660,900);
-  }
-}
-
-function drawPhotos(c){
-  const slots = getSlots();
-
-  slots.forEach((slot,index)=>{
-    const item = photos[index];
-
-    if(item.img){
-      const scale = Math.max(slot.w / item.img.width, slot.h / item.img.height);
-      const w = item.img.width * scale * item.zoom;
-      const h = item.img.height * scale * item.zoom;
-
-      c.save();
-      c.beginPath();
-      c.rect(slot.x,slot.y,slot.w,slot.h);
-      c.clip();
-      c.drawImage(item.img,item.x,item.y,w,h);
-      c.restore();
-    }
-  });
-}
-
-function drawFrameLines(c){
-  const slots = getSlots();
-
-  slots.forEach(s=>{
-    c.strokeStyle = getFrameColor();
-    c.lineWidth = selectedType.includes("p1") ? 28 : 24;
-    c.strokeRect(s.x,s.y,s.w,s.h);
-  });
-
-  c.fillStyle = getTextColor();
-
-  if(selectedType.includes("p3")){
-    c.font = "italic 34px Georgia";
-    c.fillText("the most loved edit",255,1035);
-  }
-
-  if(selectedType.includes("p1")){
-    c.font = "italic 38px Georgia";
-    c.fillText("the most loved edit",245,900);
-  }
-}
-
-function drawActiveSlot(c){
-  const slot = getSlots()[activeSlot];
-  if(!slot) return;
-
-  c.save();
-  c.strokeStyle = selectedType.includes("white") ? "#8b0016" : "white";
-  c.lineWidth = 6;
-  c.strokeRect(slot.x,slot.y,slot.w,slot.h);
-  c.restore();
-}
-
-canvas.addEventListener("mousedown",startDrag);
-canvas.addEventListener("touchstart",startDrag,{passive:false});
-
-window.addEventListener("mousemove",drag);
-window.addEventListener("touchmove",drag,{passive:false});
-
-window.addEventListener("mouseup",endDrag);
-window.addEventListener("touchend",endDrag);
-
-function getPoint(e){
-  const rect = canvas.getBoundingClientRect();
-  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-  return {
-    x:(clientX - rect.left) * (canvas.width / rect.width),
-    y:(clientY - rect.top) * (canvas.height / rect.height)
-  };
-}
-
-function startDrag(e){
-  e.preventDefault();
-
-  const p = getPoint(e);
-  const slots = getSlots();
-
-  for(let i=0;i<slots.length;i++){
-    const s = slots[i];
-
-    if(p.x >= s.x && p.x <= s.x + s.w && p.y >= s.y && p.y <= s.y + s.h){
-      activeSlot = i;
-      updateSelectedText();
-      zoomRange.value = photos[i].zoom;
-      draw();
-      break;
-    }
-  }
-
-  if(!photos[activeSlot].img) return;
-
-  dragging = true;
-  lastX = p.x;
-  lastY = p.y;
-}
-
-function drag(e){
-  if(!dragging) return;
-  e.preventDefault();
-
-  const p = getPoint(e);
-  const item = photos[activeSlot];
-
-  item.x += p.x - lastX;
-  item.y += p.y - lastY;
-
-  lastX = p.x;
-  lastY = p.y;
-
-  draw();
-}
-
-function endDrag(){
-  dragging = false;
-}
-
-function finish(){
-  resultCanvas.width = canvas.width;
-  resultCanvas.height = canvas.height;
-
-  draw(rctx);
-  show(resultPage);
-}
-
-function downloadImage(){
-  const jpgCanvas = document.createElement("canvas");
-  jpgCanvas.width = resultCanvas.width;
-  jpgCanvas.height = resultCanvas.height;
-
-  const jpgCtx = jpgCanvas.getContext("2d");
-
-  jpgCtx.fillStyle = "#ffffff";
-  jpgCtx.fillRect(0,0,jpgCanvas.width,jpgCanvas.height);
-
-  jpgCtx.drawImage(resultCanvas,0,0);
-
-  const link = document.createElement("a");
-  link.download = "polaroid-charry.jpg";
-  link.href = jpgCanvas.toDataURL("image/jpeg",1.0);
-  link.click();
-}
-
-function printImage(){
-  const data = resultCanvas.toDataURL("image/png");
-  const win = window.open("");
-  win.document.write(`<img src="${data}" style="width:100%">`);
-  win.document.close();
-  win.print();
-}
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
