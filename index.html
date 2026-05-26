@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Most Loved Edit | Polaroid</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app">
+    <section class="page cover-page active" id="pageCover">
+      <img src="capa.jpg" alt="The most loved edit" class="cover-img" />
+      <button class="primary-btn cover-btn" id="startBtn">crie sua polaroid</button>
+    </section>
+
+    <section class="page layout-page" id="pageLayouts">
+      <div class="container">
+        <h1>Escolha sua moldura</h1>
+        <p class="subtitle">Selecione o layout da polaroid para começar.</p>
+
+        <div class="layouts">
+          <button class="layout-card" data-layout="classic-red">
+            <div class="polaroid-preview red classic">
+              <div></div>
+              <span>♡</span>
+            </div>
+            <strong>Clássica vermelha</strong>
+          </button>
+
+          <button class="layout-card" data-layout="classic-white">
+            <div class="polaroid-preview white classic">
+              <div></div>
+              <span>♡</span>
+            </div>
+            <strong>Clássica branca</strong>
+          </button>
+
+          <button class="layout-card" data-layout="strip-red">
+            <div class="strip-preview red">
+              <div></div><div></div><div></div>
+            </div>
+            <strong>Tirinha vermelha</strong>
+          </button>
+
+          <button class="layout-card" data-layout="film">
+            <div class="film-preview">
+              <div></div><div></div><div></div>
+            </div>
+            <strong>Filme</strong>
+          </button>
+        </div>
+
+        <button class="ghost-btn" id="backToCover">voltar</button>
+      </div>
+    </section>
+
+    <section class="page editor-page" id="pageEditor">
+      <div class="editor-grid">
+        <div class="editor-panel">
+          <h1>Ajuste sua foto</h1>
+          <p class="subtitle">Envie a imagem e use o zoom para encaixar no quadrado.</p>
+
+          <label class="upload-box">
+            <input type="file" id="photoInput" accept="image/*" />
+            <span>Escolher foto</span>
+          </label>
+
+          <div class="controls">
+            <label for="zoomRange">Zoom</label>
+            <input type="range" id="zoomRange" min="1" max="3" step="0.01" value="1" />
+            <div class="zoom-buttons">
+              <button class="ghost-btn" id="zoomOut">- zoom</button>
+              <button class="ghost-btn" id="zoomIn">+ zoom</button>
+            </div>
+          </div>
+
+          <p class="hint">Dica: arraste a foto dentro da moldura para posicionar melhor.</p>
+
+          <div class="actions">
+            <button class="ghost-btn" id="backToLayouts">trocar moldura</button>
+            <button class="primary-btn" id="finishBtn">finalizar</button>
+          </div>
+        </div>
+
+        <div class="preview-area">
+          <canvas id="editorCanvas" width="900" height="1200"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="page result-page" id="pageResult">
+      <div class="container result-container">
+        <h1>Sua polaroid está pronta</h1>
+        <canvas id="resultCanvas" width="900" height="1200"></canvas>
+
+        <div class="actions">
+          <button class="primary-btn" id="downloadBtn">baixar</button>
+          <button class="primary-btn" id="printBtn">imprimir</button>
+          <button class="ghost-btn" id="editAgainBtn">editar novamente</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
