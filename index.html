@@ -6,11 +6,7 @@
 <title>The Most Loved Edit</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
   font-family:Arial,sans-serif;
@@ -18,14 +14,8 @@ body{
   overflow-x:hidden;
 }
 
-.page{
-  display:none;
-  min-height:100vh;
-}
-
-.page.active{
-  display:block;
-}
+.page{display:none;min-height:100vh}
+.page.active{display:block}
 
 .cover{
   min-height:100vh;
@@ -72,13 +62,10 @@ body{
   width:180px;
   cursor:pointer;
   transition:.3s;
-  border-radius:25px;
   padding:10px;
 }
 
-.frame-option.active{
-  transform:scale(1.08);
-}
+.frame-option.active{transform:scale(1.08)}
 
 .frame-option img{
   width:100%;
@@ -113,7 +100,7 @@ body{
 }
 
 .panel{
-  background:rgba(255,255,255,.95);
+  background:white;
   padding:35px;
   border-radius:30px;
 }
@@ -127,31 +114,6 @@ body{
 .panel p{
   line-height:1.5;
   margin-bottom:20px;
-}
-
-.slot-buttons{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-  margin-bottom:20px;
-}
-
-.slot-buttons.one{
-  grid-template-columns:1fr;
-}
-
-.slot-btn{
-  height:42px;
-  border-radius:50px;
-  border:1px solid #8b0016;
-  background:white;
-  color:#8b0016;
-  cursor:pointer;
-}
-
-.slot-btn.active{
-  background:#8b0016;
-  color:white;
 }
 
 .upload{
@@ -168,9 +130,7 @@ body{
   margin-bottom:25px;
 }
 
-.upload input{
-  display:none;
-}
+.upload input{display:none}
 
 .zoom{
   width:100%;
@@ -202,6 +162,7 @@ body{
 canvas{
   max-width:100%;
   max-height:80vh;
+  cursor:pointer;
 }
 
 .result{
@@ -214,9 +175,7 @@ canvas{
   padding:40px;
 }
 
-.result.active{
-  display:flex;
-}
+.result.active{display:flex}
 
 .result-buttons{
   display:flex;
@@ -243,13 +202,8 @@ canvas{
 }
 
 @media(max-width:900px){
-  .choice h1{
-    font-size:42px;
-  }
-
-  .editor-box{
-    grid-template-columns:1fr;
-  }
+  .choice h1{font-size:42px}
+  .editor-box{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -290,9 +244,9 @@ canvas{
     <div class="panel">
       <h1>Ajuste sua foto</h1>
 
-      <p id="photoText">Escolha uma foto para cada quadradinho.</p>
-
-      <div class="slot-buttons" id="slotButtons"></div>
+      <p id="photoText">
+        Clique em um quadradinho da polaroid e depois em inserir foto.
+      </p>
 
       <label class="upload">
         INSERIR FOTO
@@ -307,7 +261,7 @@ canvas{
       </div>
 
       <p style="margin-top:20px;">
-        Clique em Foto 1, Foto 2, Foto 3 ou Foto 4 para escolher a imagem de cada quadro.
+        Quadrado selecionado: <strong id="selectedText">Foto 1</strong>
       </p>
 
       <p>
@@ -347,8 +301,7 @@ const rctx = resultCanvas.getContext("2d");
 
 const fileInput = document.getElementById("fileInput");
 const zoomRange = document.getElementById("zoomRange");
-const slotButtons = document.getElementById("slotButtons");
-const photoText = document.getElementById("photoText");
+const selectedText = document.getElementById("selectedText");
 
 let selectedFrame = "";
 let selectedType = "";
@@ -370,7 +323,7 @@ function goToChoice(){
   show(choicePage);
 }
 
-function selectFrame(el,frame,type){
+function selectFrame(el, frame, type){
   document.querySelectorAll(".frame-option").forEach(i => i.classList.remove("active"));
   el.classList.add("active");
 
@@ -388,7 +341,6 @@ function goToEditor(){
 
   frameImage.onload = () => {
     setupPhotos();
-    buildButtons();
     draw();
     show(editorPage);
   };
@@ -397,7 +349,9 @@ function goToEditor(){
 function getSlots(){
   if(selectedType === "p1"){
     return [
-      {x:150,y:140,w:600,h:850}
+      {x:170,y:150,w:560,h:250},
+      {x:170,y:450,w:560,h:250},
+      {x:170,y:750,w:560,h:250}
     ];
   }
 
@@ -439,32 +393,11 @@ function setupPhotos(){
 
   activeSlot = 0;
   zoomRange.value = 2;
+  updateSelectedText();
 }
 
-function buildButtons(){
-  slotButtons.innerHTML = "";
-  slotButtons.classList.toggle("one", photos.length === 1);
-
-  photos.forEach((_,i)=>{
-    const btn = document.createElement("button");
-
-    btn.className = "slot-btn" + (i === activeSlot ? " active" : "");
-    btn.innerText = photos.length === 1 ? "Foto" : "Foto " + (i + 1);
-
-    btn.onclick = ()=>{
-      activeSlot = i;
-      zoomRange.value = photos[i].zoom;
-      fileInput.value = "";
-      buildButtons();
-      draw();
-    };
-
-    slotButtons.appendChild(btn);
-  });
-
-  photoText.innerText = photos.length === 1
-    ? "Escolha e ajuste sua foto."
-    : `Escolha e ajuste a foto ${activeSlot + 1} de ${photos.length}.`;
+function updateSelectedText(){
+  selectedText.innerText = "Foto " + (activeSlot + 1);
 }
 
 fileInput.addEventListener("change", e=>{
@@ -487,6 +420,14 @@ fileInput.addEventListener("change", e=>{
       zoomRange.value = 2;
       fitImage(activeSlot);
       draw();
+
+      if(activeSlot < photos.length - 1){
+        activeSlot++;
+        updateSelectedText();
+        zoomRange.value = photos[activeSlot].zoom;
+      }
+
+      fileInput.value = "";
     };
 
     img.src = reader.result;
@@ -562,6 +503,12 @@ function draw(targetCtx = ctx){
       targetCtx.drawImage(item.img,item.x,item.y,w,h);
       targetCtx.restore();
     }
+
+    if(index === activeSlot && targetCtx === ctx){
+      targetCtx.strokeStyle = "#8b0016";
+      targetCtx.lineWidth = 8;
+      targetCtx.strokeRect(slot.x,slot.y,slot.w,slot.h);
+    }
   });
 
   targetCtx.drawImage(frameImage,0,0,canvas.width,canvas.height);
@@ -593,7 +540,7 @@ function startDrag(e){
   const p = getPoint(e);
   const slots = getSlots();
 
-  for(let i=0; i<slots.length; i++){
+  for(let i=0;i<slots.length;i++){
     const s = slots[i];
 
     if(
@@ -603,8 +550,9 @@ function startDrag(e){
       p.y <= s.y + s.h
     ){
       activeSlot = i;
+      updateSelectedText();
       zoomRange.value = photos[i].zoom;
-      buildButtons();
+      draw();
       break;
     }
   }
