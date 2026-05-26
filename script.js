@@ -1,3 +1,7 @@
+function goToChoice(){
+  document.getElementById("coverPage").classList.remove("active");
+  document.getElementById("choicePage").classList.add("active");
+}
 function downloadImage(){
 
   // cria fundo branco
