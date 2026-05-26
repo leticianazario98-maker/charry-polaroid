@@ -300,3 +300,24 @@ canvas {
     max-height: 95vh;
   }
 }
+.slot-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 22px 0;
+}
+
+.slot-btn {
+  border: 1px solid #b90013;
+  background: transparent;
+  color: #b90013;
+  border-radius: 999px;
+  padding: 11px 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.slot-btn.active {
+  background: #b90013;
+  color: #fff;
+}
